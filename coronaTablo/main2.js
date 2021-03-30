@@ -1,177 +1,172 @@
-var myChart = echarts.init(document.getElementById('grafik'));
+var example = echarts.init(document.getElementById('grafik'));
+
+var covidVerileri = [];
+var olumSayilari =[]
+var gunler = [];
+$.getJSON("https://raw.githubusercontent.com/ozanerturk/covid19-turkey-api/master/dataset/timeline.json",function (covidData)    {
+    var dun = moment().subtract(1, "days").format("YYYY/MM/DD");
+    gunler.push(getDates("2020/03/11", dun));
+    
+   
+    $.each(gunler[0], function (index, value) {
+      covidVerileri.push(covidData[gunler[0][index]].patients);
+      olumSayilari.push(covidData[gunler[0][index]].deaths);
+    });
 
 
-var option = {
-    backgroundColor: '#091C3D',
-	tooltip: { //提示框组件
-		trigger: 'axis',
-		formatter: '{b}<br />{a0}: {c0}<br />{a1}: {c1}',
-		axisPointer: {
-			type: 'shadow',
-			label: {
-				backgroundColor: '#6a7985'
-			}
-		},
-		textStyle: {
-			color: '#fff',
-			fontStyle: 'normal',
-			fontFamily: '微软雅黑',
-			fontSize: 12,
-		}
-	},
-	grid: {
-		left: '10%',
-		right: '10%',
-		bottom: '10%',
-		top:'40%',
-	//	padding:'0 0 10 0',
-		containLabel: true,
-	},
-    legend: {//图例组件，颜色和名字
-        right:'10%',
-		top:'30%',
-		itemGap: 16,
-		itemWidth: 18,
-		itemHeight: 10,
-        data:[{
-            name:'Vaka',
-            //icon:'image://../wwwroot/js/url2.png', //路径
-        },
-        {
-            name:'Ölüm',
-        }],
-        textStyle: {
-			color: '#a8aab0',
-			fontStyle: 'normal',
-			fontFamily: '微软雅黑',
-			fontSize: 12,            
-        }
-    },
-	xAxis: [
-		{
-			type: 'category',
-		//	boundaryGap: true,//坐标轴两边留白
-			data: ['9', '22:23', '22:25','22:28','22:30','22:33','22:35','22:40','22:18', '22:23', '22:25','22:28','22:30','22:33','22:35','22:40'],
-			axisLabel: { //坐标轴刻度标签的相关设置。
-		//		interval: 0,//设置为 1，表示『隔一个标签显示一个标签』
-			//	margin:15,
-				textStyle: {
-					color: '#078ceb',
-					fontStyle: 'normal',
-					fontFamily: '微软雅黑',
-					fontSize: 12,
-				},
-				rotate:50,
-			},
-			axisTick:{//坐标轴刻度相关设置。
-				show: false,
-			},
-			axisLine:{//坐标轴轴线相关设置
-				lineStyle:{
-					color:'#fff',
-					opacity:0.2
-				}
-			},
-			splitLine: { //坐标轴在 grid 区域中的分隔线。
-				show: false,
-			}
-		}
-	],
-	yAxis: [
-		{
-			type: 'value',
-			splitNumber: 5,
-			axisLabel: {
-				textStyle: {
-					color: '#a8aab0',
-					fontStyle: 'normal',
-					fontFamily: '微软雅黑',
-					fontSize: 12,
-				}
-			},
-			axisLine:{
-				show: false
-			},
-			axisTick:{
-				show: false
-			},
-			splitLine: {
-				show: true,
-				lineStyle: {
-					color: ['#fff'],
-					opacity:0.06
-				}
-			}
 
-		}
-	],
-    series : [
-        {
-            name:'Vaka',
-            type:'bar',
-            data:[10,15, 30, 45, 55, 60, 62, 80,80,62, 60, 55, 45, 30, 15, 10],
-            barWidth: 10,
-            barGap:0,//柱间距离
-            // label: {//图形上的文本标签
-            //     normal: {
-            //       show: true,
-            //       position: 'top',
-            //       textStyle: {
-            //           color: '#a8aab0',
-            //           fontStyle: 'normal',
-            //           fontFamily: '微软雅黑',
-            //           fontSize: 12,   
-            //       },
-            //     },
-            // },
-          itemStyle: {
-                normal: {
-                    show: true,
-                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                        offset: 0,
-                        color: '#5768EF'
-                    }, {
-                        offset: 1,
-                        color: '#5768EF'
-                    }]),
-                    barBorderRadius: 50,
-                    borderWidth: 0,
+    var option = {
+        backgroundColor: '#091C3D',
+        tooltip: { 
+            trigger: 'axis',
+            formatter: '{b}<br />{a0}: {c0}<br />{a1}: {c1}',
+            axisPointer: {
+                type: 'shadow',
+                label: {
+                    backgroundColor: '#6a7985'
                 }
             },
+            textStyle: {
+                color: '#fff',
+                fontStyle: 'normal',
+                fontFamily: '微软雅黑',
+                fontSize: 12,
+            }
         },
-        {
-            name:'Ölüm',
-            type:'bar',
-            data:[8,5, 25, 30, 35, 55, 62, 78,65,55, 60, 45, 42, 15, 12, 5],
-            barWidth: 10,
-            barGap:0,//柱间距离
-            // label: {//图形上的文本标签
-            //     normal: {
-            //       show: true,
-            //       position: 'top',
-            //       textStyle: {
-            //           color: '#a8aab0',
-            //           fontStyle: 'normal',
-            //           fontFamily: '微软雅黑',
-            //           fontSize: 12,   
-            //       },
-            //     },
-            // },
-             itemStyle: {
-                normal: {
-                    show: true,
-                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                        offset: 0,
-                        color: '#69CBF2'
-                    }, {
-                        offset: 1,
-                        color: '#69CBF2'
-                    }]),
-                    barBorderRadius: 50,
-                    borderWidth: 0,
+        grid: {
+            left: '10%',
+            right: '10%',
+            bottom: '10%',
+            top:'40%',
+        
+            containLabel: true,
+        },
+        legend: {
+            right:'10%',
+            top:'30%',
+            itemGap: 16,
+            itemWidth: 18,
+            itemHeight: 10,
+            data:["olum","hasta"],
+            textStyle: {
+                color: '#a8aab0',
+                fontStyle: 'normal',
+                fontFamily: '微软雅黑',
+                fontSize: 12,            
+            }
+        },
+        xAxis: [
+            {
+                type: 'category',
+            
+                data:gunler[0],
+                axisLabel: { 
+                    textStyle: {
+                        color: '#078ceb',
+                        fontStyle: 'normal',
+                        fontFamily: '微软雅黑',
+                        fontSize: 12,
+                    },
+                    rotate:50,
+                },
+                axisTick:{
+                    show: false,
+                },
+                axisLine:{
+                    lineStyle:{
+                        color:'#fff',
+                        opacity:0.2
+                    }
+                },
+                splitLine: { 
+                    show: false,
                 }
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                splitNumber: 5,
+                axisLabel: {
+                    textStyle: {
+                        color: '#a8aab0',
+                        fontStyle: 'normal',
+                        fontFamily: '微软雅黑',
+                        fontSize: 12,
+                    }
+                },
+                axisLine:{
+                    show: false
+                },
+                axisTick:{
+                    show: false
+                },
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: ['#fff'],
+                        opacity:0.06
+                    }
+                }
+    
+            }
+        ],
+        series : [
+            {
+                name:'hasta',
+                type:'line',
+                data:covidVerileri,
+                barWidth: 10,
+                barGap:0,
+              itemStyle: {
+                    normal: {
+                        show: true,
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#5768EF'
+                        }, {
+                            offset: 1,
+                            color: '#5768EF'
+                        }]),
+                        barBorderRadius: 50,
+                        borderWidth: 0,
+                    }
+                },
             },
-        }
-    ]
-};
-myChart.setOption(option);
+            {
+                name:'olum',
+                type:'bar',
+                data:olumSayilari,
+                barWidth: 10,
+                barGap:0,
+                 itemStyle: {
+                    normal: {
+                        show: true,
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#69CBF2'
+                        }, {
+                            offset: 1,
+                            color: '#69CBF2'
+                        }]),
+                        barBorderRadius: 50,
+                        borderWidth: 0,
+                    }
+                },
+            }
+        ]
+    };
+example.setOption(option);
+
+
+function getDates(startDate, stopDate) {
+    var dateArray = [];
+    var currentDate = moment(startDate);
+    var stopDate = moment(stopDate);
+    while (currentDate <= stopDate) {
+      dateArray.push(moment(currentDate).format("DD/MM/YYYY"));
+      currentDate = moment(currentDate).add(1, "days");
+    }
+    return dateArray;
+  }
+})

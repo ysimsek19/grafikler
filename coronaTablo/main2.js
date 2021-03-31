@@ -26,6 +26,9 @@ $.getJSON("https://raw.githubusercontent.com/ozanerturk/covid19-turkey-api/maste
                     backgroundColor: '#6a7985'
                 }
             },
+            tooltip:{
+                show:true
+              },
             textStyle: {
                 color: '#fff',
                 fontStyle: 'normal',
@@ -38,6 +41,7 @@ $.getJSON("https://raw.githubusercontent.com/ozanerturk/covid19-turkey-api/maste
             right: '10%',
             bottom: '10%',
             top:'40%',
+            show: true,
         
             containLabel: true,
         },

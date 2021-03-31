@@ -1,7 +1,7 @@
 var example = echarts.init(document.getElementById('chart'));
 
 var covidVerileri = [];
-var olumSayilari =[]
+var olumSayilari =[];
 var gunler = [];
 $.getJSON("https://raw.githubusercontent.com/ozanerturk/covid19-turkey-api/master/dataset/timeline.json",function (covidData)    {
     var dun = moment().subtract(1, "days").format("YYYY/MM/DD");
@@ -13,7 +13,23 @@ $.getJSON("https://raw.githubusercontent.com/ozanerturk/covid19-turkey-api/maste
       olumSayilari.push(covidData[gunler[0][index]].deaths);
     });
     //console.log(covidVerileri)
-    var option = {
+    var option = { backgroundColor: '#6495ED',
+    tooltip: { //提示框组件
+      trigger: 'axis',
+      formatter: '{b}<br />{a0}: {c0}<br />{a1}: {c1}',
+      axisPointer: {
+        type: 'shadow',
+        label: {
+          backgroundColor: '#A9A9A9'
+        }
+      },
+      textStyle: {
+        color: '#fff',
+        fontStyle: 'normal',
+        fontFamily: '微软雅黑',
+        fontSize: 12,
+      }
+    },
       title: {
         text: "examples"
       },
@@ -21,7 +37,7 @@ $.getJSON("https://raw.githubusercontent.com/ozanerturk/covid19-turkey-api/maste
         show:true
       },
             legend:{
-     data:["olum","hasta"]
+     data:["hasta","olum"]
       },
       xAxis: [
         {
@@ -32,8 +48,8 @@ $.getJSON("https://raw.githubusercontent.com/ozanerturk/covid19-turkey-api/maste
       yAxis: [
         {
           type: "value",
-          max:1500,
-          interval:100
+          max:6000,
+          interval:200
         }
       ],
       grid: {
@@ -43,12 +59,12 @@ $.getJSON("https://raw.githubusercontent.com/ozanerturk/covid19-turkey-api/maste
       series: [
         {
           type: "bar",
-          name:"olum",
+          name:"hasta",
           data: covidVerileri
         },
         {
           type: "bar",
-          name:"hasta",
+          name:"olum",
           data: olumSayilari
         }
       ]

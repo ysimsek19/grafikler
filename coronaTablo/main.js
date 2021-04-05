@@ -12,7 +12,7 @@ const legendTop = [titleHeight - 10, titleHeight + unitSize * 2.6, titleHeight +
 const tagNames = ["İlkler", "Güzel Haberler", "Gidişad"]
 const legendNames = ["AÇIKLAMALAR", "burası", "şurası"]
 
-let trumpData = [{ "date": "2020-01-21", "tag": "2", "message": "Ülkemizde ilk Corona19 vakası görülmüştür.", }]
+let fahrettinData = [{ "date": "2020-01-21", "tag": "2", "message": "Ülkemizde ilk Corona19 vakası görülmüştür.", }]
 //let USA_COVID_19 = [{ "date": "2020-01-21", "confirmed": 1, "recovered": 0, "deaths": 0 }]
 
 
@@ -52,16 +52,16 @@ $.getJSON(
     }
     let mergeData = []
     let j = 0
-    let trupmD = dateInNumber(trumpData[0].date)
-    let trumpLen = trumpData.length
+    let trupmD = dateInNumber(fahrettinData[0].date)
+    let trumpLen = fahrettinData.length
     USA_COVID_19.forEach((d, i) => {
       let row = [d.date, i, null, parseInt(d.deaths), parseInt(d.confirmed)]
       const date = dateInNumber(d.date)
       if (date >= trupmD && j < trumpLen) {
-        row[2] = trumpData[j]
+        row[2] = fahrettinData[j]
         j++
         if (j < trumpLen) {
-          trupmD = dateInNumber(trumpData[j].date)
+          trupmD = dateInNumber(fahrettinData[j].date)
         }
       }
       mergeData.push(row)

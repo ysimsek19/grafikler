@@ -26,7 +26,7 @@ $.getJSON(
     gunler.push(getDates("2020/03/11", dun));
 
     $.each(gunler[0], function (index, value) {
-      USA_COVID_19.push({ "date": moment(gunler[0][index], 'DD-MM-YYYY').format('YYYY-MM-DD'), "confirmed": covidData[gunler[0][index]].patients, "recovered": covidData[gunler[0][index]].recovered, "deaths": covidData[gunler[0][index]].deaths });
+      USA_COVID_19.push({ "date": moment(gunler[0][index], 'DD-MM-YYYY').format ('YYYY-MM-DD'), "confirmed": covidData[gunler[0][index]].patients, "recovered": covidData[gunler[0][index]].recovered, "deaths": covidData[gunler[0][index]].deaths });
 
     });
     console.log(USA_COVID_19)

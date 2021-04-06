@@ -54,26 +54,26 @@ $.getJSON(
             {
                 name: 'Pozitif(cases)',
                 type: 'line',
-                stack: '总量',
+               
                 data: covidVerileri
             },
             {
                 name: 'Hasta(patients)',
                 type: 'line',
-                stack: '总量',
+               
                 data: hastaSayisi
             },
             
             {
                 name: 'İyileşen(recovere)',
                 type: 'line',
-                stack: '总量',
+               
                 data: iyilesen
             },
             {
                 name: 'Vefat(deaths)',
                 type: 'line',
-                stack: '总量',
+               
                 data: olumSayilari
             }
         ]
